@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,7 +75,13 @@ public class PostController {
                 .orElseGet(() -> ResponseEntity.notFound().build()); // Se for vazio, retorna 404 Not Found
     }
 
-
+    @PutMapping("/{id}")
+    public ResponseEntity<PostEntity> atualizarPost(@PathVariable UUID id, @RequestBody PostEntity postAtualizado) {
+        // Chama o Service para realizar a atualização
+        return service.atualizarPost(id, postAtualizado)
+                .map(ResponseEntity::ok) // Se o Optional tiver valor, retorna 200 OK
+                .orElseGet(() -> ResponseEntity.notFound().build()); // Se for vazio, retorna 404 Not Found
+    }
 
     
 
