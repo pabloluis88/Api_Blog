@@ -2,8 +2,9 @@ package com.api.blog.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,10 @@ public class PostService {
 
     }
 
+    public Optional<PostEntity> buscarPorId(UUID id) {
+        return repository.findById(id);
+    }
+
     public boolean deletarPorId(UUID id) {
         // 1. Verificamos se o post existe antes de tentar deletá-lo
         Optional<PostEntity> postOptional = repository.findById(id);
@@ -49,6 +54,5 @@ public class PostService {
 
         return false; // Indicamos que o post não foi encontrado
     }
- 
 
 }

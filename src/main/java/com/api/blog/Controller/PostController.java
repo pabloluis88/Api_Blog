@@ -58,14 +58,24 @@ public class PostController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarPost(@PathVariable UUID id) {
-    boolean deletado = service.deletarPorId(id);
+        boolean deletado = service.deletarPorId(id);
 
-    if (deletado) {
-        return ResponseEntity.noContent().build(); // Retorna 204 No Content
-    } else {
-        return ResponseEntity.notFound().build(); // Retorna 404 Not Found
+        if (deletado) {
+            return ResponseEntity.noContent().build(); // Retorna 204 No Content
+        } else {
+            return ResponseEntity.notFound().build(); // Retorna 404 Not Found
+        }
     }
-}
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PostEntity> buscarPorId(@PathVariable UUID id) {
+        return service.buscarPorId(id)
+                .map(ResponseEntity::ok) // Se o Optional tiver valor, retorna 200 OK
+                .orElseGet(() -> ResponseEntity.notFound().build()); // Se for vazio, retorna 404 Not Found
+    }
+
+
+
     
 
 }
