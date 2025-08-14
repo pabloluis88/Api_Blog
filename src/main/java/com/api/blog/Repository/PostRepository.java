@@ -2,6 +2,8 @@ package com.api.blog.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -14,6 +16,10 @@ public interface PostRepository extends JpaRepository<PostEntity, java.util.UUID
 
     // Se você precisar de um intervalo de datas, pode usar Between
     List<PostEntity> findByDataCriacaoBetween(LocalDateTime start, LocalDateTime end);
+
+    @SuppressWarnings("null")
+    @Override
+    Optional<PostEntity> findById(UUID id);
 
 
 }
