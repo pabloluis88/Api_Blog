@@ -1,5 +1,6 @@
 package com.api.blog.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,15 @@ public class PostService {
     public List<PostEntity> listarTodos() {
         return repository.findAll();
     }
+
+    public List<PostEntity> buscarPorDataCriacao(LocalDateTime dataCriacao) {
+        return repository.findByDataCriacao(dataCriacao);
+    }
+
+    public List<PostEntity> buscarPorPeriodo(LocalDateTime inicioDoDia, LocalDateTime fimDoDia){
+        return repository.findByDataCriacaoBetween(inicioDoDia, fimDoDia);
+
+    }
+ 
 
 }
